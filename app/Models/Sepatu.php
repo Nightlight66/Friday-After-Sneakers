@@ -19,6 +19,11 @@ class Sepatu extends Model
         'gambar_sepatu',
     ];
 
+    public function getStokSekarangAttribute()
+    {
+        return optional($this->stok_sepatu->first())->jumlah_stok ?? 0;
+    }
+
     public function kategori()
     {
         return $this->belongsTo(KategoriSepatu::class, 'kategori_id', 'kategori_id');
@@ -28,4 +33,5 @@ class Sepatu extends Model
     {
         return $this->hasMany(StokSepatu::class, 'sepatu_id', 'sepatu_id');
     }
+
 }

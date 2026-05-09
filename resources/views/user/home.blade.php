@@ -319,7 +319,7 @@
                     <h2 class="section-title">KOLEKSI<br>PILIHAN</h2>
                 </div>
                 <div class="col-auto">
-                    <a href="" class="btn btn-fas-outline">
+                    <a href="{{ route('user.katalog') }}" class="btn btn-fas-outline">
                         Lihat Semua <i class="bi bi-arrow-right ms-1"></i>
                     </a>
                 </div>
@@ -354,11 +354,10 @@
                                     <div class="product-price">
                                         Rp {{ number_format($data->harga_sepatu, 0, ',', '.') }}
                                     </div>
-                                    @php $stok = $data->stok_sepatu->sum('jumlah_stok') @endphp
-                                    @if($stok <= 0)
+                                    @if($data->stok_sekarang <= 0)
                                         <span class="stok-badge badge bg-danger">Habis</span>
-                                    @elseif($stok <= 5)
-                                        <span class="stok-badge badge bg-warning text-dark">Sisa {{ $stok }}</span>
+                                    @elseif($data->stok_sekarang <= 5)
+                                        <span class="stok-badge badge bg-warning text-dark">Sisa {{ $data->stok_sekarang }}</span>
                                     @else
                                         <span class="stok-badge badge bg-success">Tersedia</span>
                                     @endif

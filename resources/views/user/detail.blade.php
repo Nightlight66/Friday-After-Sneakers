@@ -293,17 +293,16 @@
                     </div>
 
                     {{-- Stok Info --}}
-                    @php $totalStok = $sepatu->stok_sepatu->sum('jumlah_stok') @endphp
                     <div class="d-flex align-items-center gap-2 mb-4">
-                        @if($totalStok <= 0)
+                        @if($sepatu->stok_sekarang <= 0)
                             <span class="stok-tag bg-danger">Stok Habis</span>
-                        @elseif($totalStok <= 5)
-                            <span class="stok-tag bg-warning text-dark">Sisa {{ $totalStok }} pcs</span>
+                        @elseif($sepatu->stok_sekarang <= 5)
+                            <span class="stok-tag bg-warning text-dark">Sisa {{ $sepatu->stok_sekarang }} pcs</span>
                         @else
                             <span class="stok-tag bg-success">Tersedia</span>
                         @endif
                         <span style="color:var(--fas-muted);font-size:.85rem;">
-                            Total Stok: {{ $totalStok }} pcs
+                            Total Stok: {{ $sepatu->stok_sekarang }} pcs
                         </span>
                     </div>
 
