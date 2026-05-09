@@ -155,10 +155,10 @@
     </style>
 </head>
 <body>
-
+    
     {{-- ── NAVBAR ─────────────────────────────────── --}}
     @include('layout.navbar')
-
+    
     {{-- Flash Messages --}}
     @if(session('error'))
         <div class="alert alert-danger rounded-0 mb-0">{{ session('error') }}</div>
@@ -476,7 +476,6 @@
     <footer>
         @include('layout.footer')
     </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
