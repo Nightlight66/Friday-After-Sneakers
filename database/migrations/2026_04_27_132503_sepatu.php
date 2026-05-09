@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id('sepatu_id');
             $table->string('nama_sepatu');
             $table->string('merk_sepatu');
+            $table->foreignId('kategori_id')
+                ->constrained('kategori_sepatu', 'kategori_id')
+                ->onDelete('cascade');
             $table->text('deskripsi_sepatu');
             $table->decimal('harga_sepatu', 12, 2);
             $table->string('gambar_sepatu');

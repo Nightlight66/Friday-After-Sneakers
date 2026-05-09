@@ -43,17 +43,26 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
+                                    <label for="kategori_id" class="form-label fw-semibold">Kategori Sepatu</label>
+                                    <select id="kategori_id" name="kategori_id" class="form-select" required>
+                                        <option value="" disabled selected>Pilih Kategori</option>
+                                        @foreach($kategori_sepatu as $kategori)
+                                            <option value="{{ $kategori->kategori_id }}">{{ $kategori->nama_kategori }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
                                     <label for="harga_sepatu" class="form-label fw-semibold">Harga Sepatu (Rp)</label>
                                     <input type="number" id="harga_sepatu" name="harga_sepatu" class="form-control" step="0.01" placeholder="0" required>
                                 </div>
+                            </div>
+                            
+                            <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="ukuran_sepatu" class="form-label fw-semibold">Ukuran Sepatu</label>
                                     <input type="text" name="ukuran_sepatu" class="form-control" placeholder="Contoh: 40,41,42,43" value="{{ old('ukuran') }}">    
                                     <div class="form-text">Gunakan koma (,) sebagai pemisah antar ukuran.</div>                            
                                 </div>
-                            </div>
-
-                            <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="jumlah_stok" class="form-label fw-semibold">Stok Tersedia</label>
                                     <input type="number" id="jumlah_stok" name="jumlah_stok" class="form-control" placeholder="0" min="0" required>

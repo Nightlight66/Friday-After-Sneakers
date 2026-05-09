@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sepatu;
+use App\Models\KategoriSepatu;
 
 class AdminController extends Controller
 {
@@ -12,7 +13,8 @@ class AdminController extends Controller
     }
 
     public function createSepatu(){
-        return view('admin.sepatu.create-sepatu');
+        $kategori_sepatu = KategoriSepatu::all();
+        return view('admin.sepatu.create-sepatu', compact('kategori_sepatu'));
     }
 
     public function editSepatu($id){

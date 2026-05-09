@@ -2,13 +2,13 @@
 
 namespace Database\Seeders;
 
-// use App\Models\KategoriSepatu;
-// use App\Models\User;
+use App\Models\KategoriSepatu;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-// use Illuminate\Support\Facades\DB;
-// use Illuminate\Support\Facades\Hash;
-// use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 
 class DatabaseSeeder extends Seeder
@@ -27,13 +27,21 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-    //     DB::table('users')->insert([
-    //         'nama_lengkap' => 'admin',
-    //         'email' => 'admin@example.com',
-    //         'password' => Hash::make('password'),
-    //         'no_telepon' => '000000000000',
-    //         'role' => 'admin',
-    //     ]);
+        // DB::table('kategori_sepatu')->insert([
+        //     ['nama_kategori' => 'Running Shoes'],
+        //     ['nama_kategori' => 'Basketball Shoes'],
+        //     ['nama_kategori' => 'Casual Sneakers'],
+        //     ['nama_kategori' => 'High Heels'],
+        //     ['nama_kategori' => 'Boots'],
+        // ]);
+
+        // DB::table('users')->insert([
+        //     'nama_lengkap' => 'admin',
+        //     'email' => 'admin@example.com',
+        //     'password' => Hash::make('password'),
+        //     'no_telepon' => '000000000000',
+        //     'role' => 'admin',
+        // ]);
 
     //     DB::table('users')->insert([
     //         'nama_lengkap' => 'Test User',

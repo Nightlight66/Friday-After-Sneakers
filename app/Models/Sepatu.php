@@ -14,14 +14,15 @@ class Sepatu extends Model
         'nama_sepatu',
         'merk_sepatu',
         'deskripsi_sepatu',
+        'kategori_id',
         'harga_sepatu',
         'gambar_sepatu',
     ];
 
-    // public function kategori()
-    // {
-    //     return $this->belongsTo(KategoriSepatu::class, 'kategori_id', 'kategori_id');
-    // }
+    public function kategori()
+    {
+        return $this->belongsTo(KategoriSepatu::class, 'kategori_id', 'kategori_id');
+    }
 
     public function stok_sepatu()
     {

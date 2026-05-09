@@ -167,27 +167,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center gap-1">
                     <li class="nav-item"><a class="nav-link active" href="{{ url('/') }}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="">Katalog</a></li>
-                    @auth
-                        <li class="nav-item">
-                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                                @csrf
-                                <button type="submit"
-                                    class="nav-link btn btn-fas-orange btn-sm ms-2 px-3 border-0"
-                                    style="font-size:.78rem;">
-                                    {{ Auth::user()->nama_lengkap }}
-                                    <i class="bi bi-box-arrow-right ms-1"></i>
-                                </button>
-                            </form>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a class="btn btn-fas-outline btn-sm ms-2 px-3" href="{{ route('login') }}"
-                               style="font-size:.78rem;">
-                                <i class="bi bi-box-arrow-in-right me-1"></i>Login
-                            </a>
-                        </li>
-                    @endauth
+                    <li class="nav-item"><a class="nav-link" href="{{ route('user.katalog') }}">Katalog</a></li>
                 </ul>
             </div>
         </div>
@@ -259,11 +239,11 @@
                     </p>
 
                     <div class="d-flex flex-wrap gap-3">
-                        <a href="" class="btn btn-fas-orange px-4 py-3"
+                        <a href="{{ route('user.katalog') }}" class="btn btn-fas-orange px-4 py-3"
                            style="font-size:1rem;">
                             <i class="bi bi-grid me-2"></i>Lihat Katalog
                         </a>
-                        <a href="https://wa.me/6287762951839" target="_blank"
+                        <a href="https://wa.me/6282143690101" target="_blank"
                            class="btn btn-fas-outline px-4 py-3" style="font-size:1rem;">
                             <i class="bi bi-whatsapp me-2"></i>Hubungi Kami
                         </a>
@@ -319,7 +299,7 @@
         </div>
     </section>
 
-    {{-- ── KATEGORI STRIP ───────────────────────────── --}}
+    ── KATEGORI STRIP ─────────────────────────────
     @if(isset($kategori) && $kategori->count())
     <div style="background:var(--fas-surface);border-top:1px solid var(--fas-border);
                 border-bottom:1px solid var(--fas-border);padding:.6rem 0;overflow:hidden;">
@@ -490,11 +470,11 @@
                 Kami siap membantu kamu.
             </p>
             <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <a href="https://wa.me/6287762951839" target="_blank"
+                <a href="https://wa.me/6282143690101" target="_blank"
                    class="btn btn-fas-orange px-4 py-3" style="font-size:1rem;">
                     <i class="bi bi-whatsapp me-2"></i>Chat via WhatsApp
                 </a>
-                <a href="https://instagram.com/fridayaftersneakers" target="_blank"
+                <a href="https://www.instagram.com/fridayafter.sneakers"target="_blank"
                    class="btn btn-fas-outline px-4 py-3" style="font-size:1rem;">
                     <i class="bi bi-instagram me-2"></i>Instagram
                 </a>

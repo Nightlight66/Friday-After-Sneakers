@@ -14,6 +14,7 @@ class SepatuController extends Controller
         $validatedData = $request->validate([
             'nama_sepatu' => 'required|string|max:255',
             'merk_sepatu' => 'required|string|max:255',
+            'kategori_id' => 'required|exists:kategori_sepatu,kategori_id',
             'deskripsi_sepatu' => 'nullable|string',
             'harga_sepatu' => 'required|numeric',
             'gambar_sepatu' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',

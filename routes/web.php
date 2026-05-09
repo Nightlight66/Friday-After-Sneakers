@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/home');
 Route::get('/home', [HomeController::class, 'home'])->name('user.home');
+Route::get('/home/katalog', [HomeController::class, 'katalog'])->name('user.katalog');
 Route::get('/detail/{sepatu_id}',[HomeController::class, 'detail'])->name('user.detail');
 
 Route::get('/login', [LoginController::class, 'showLoginForm']);
