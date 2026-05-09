@@ -403,22 +403,32 @@
                                 <div class="filter-title">Kategori</div>
                                 <select class="fas-select w-100 mb-3" name="kategori">
                                     <option value="0">Semua Kategori</option>
-                                    {{-- @foreach ($kategori as $kat)
+                                    @foreach ($kategori as $kat)
                                     <option value="{{ $kat->kategori_id }}"
                                         {{ request('kategori') == $kat->kategori_id ? 'selected' : '' }}>
                                         {{ $kat->nama_kategori }}
                                     </option>
-                                    @endforeach --}}
+                                    @endforeach
                                 </select>
 
-                                <div class="filter-title">Harga</div>
-                                <input class="fas-input w-100 mb-2" type="number"
-                                       name="harga_min" placeholder="Min (Rp)"
-                                       value="{{ request('harga_min') }}">
-                                <input class="fas-input w-100 mb-3" type="number"
-                                       name="harga_max" placeholder="Max (Rp)"
-                                       value="{{ request('harga_max') }}">
-
+                                <div class="filter-title">Rentang Harga</div>
+                                <div class="mb-2">
+                                    <label style="font-size:.78rem;color:var(--fas-muted);
+                                                font-family:var(--fas-font-cond);letter-spacing:.08em;
+                                                text-transform:uppercase;">Min</label>
+                                    <input class="fas-input w-100 mt-1" type="number"
+                                        name="harga_min" placeholder="Rp 0"
+                                        value="{{ request('harga_min') }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label style="font-size:.78rem;color:var(--fas-muted);
+                                                font-family:var(--fas-font-cond);letter-spacing:.08em;
+                                                text-transform:uppercase;">Max</label>
+                                    <input class="fas-input w-100 mt-1" type="number"
+                                        name="harga_max"
+                                        placeholder="Rp {{ number_format($hargaMax ?? 0, 0, ',', '.') }}"
+                                        value="{{ request('harga_max') }}">
+                                </div>
                                 <button type="submit" class="btn btn-fas-orange w-100">Terapkan</button>
                                 @if(request()->hasAny(['harga_min','harga_max','q','kategori']))
                                 <a href="{{ route('user.katalog') }}" class="btn btn-fas-outline w-100 mt-2">

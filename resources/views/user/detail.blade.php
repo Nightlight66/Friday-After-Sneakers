@@ -149,9 +149,9 @@
 
         /* ── Size Selector ─────────────────────────── */
         .btn-check:checked + .size-btn {
-            background: var(--fas-orange) !important;
-            border-color: var(--fas-orange) !important;
-            color: #fff !important;
+            background: transparent !important;
+            border-color: var(--fas-border) !important;
+            color: var(--fas-white) !important;
         }
         .size-btn {
             background: transparent;
@@ -215,7 +215,7 @@
                     <a href="{{ route('user.home') }}">Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="">Katalog</a>
+                    <a href="{{ route('user.katalog') }}">Katalog</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                     {{ $sepatu->nama_sepatu }}
@@ -284,9 +284,11 @@
 
                     <div class="d-flex flex-wrap gap-2 mb-3">
                         @foreach($sepatu->stok_sepatu as $stok)
+                            {{-- Ubah $stok->id menjadi $stok->stok_id dan ukuran_sepatu menjadi ukuran --}}
                             <input type="radio" class="btn-check" name="ukuran_sepatu"
-                                   id="uk{{ $stok->id }}" value="{{ $stok->ukuran_sepatu }}">
-                            <label class="size-btn btn px-3 py-2" for="uk{{ $stok->id }}">
+                                id="uk_{{ $stok->stok_id }}" value="{{ $stok->ukuran_sepatu }}">
+                                
+                            <label class="size-btn btn px-3 py-2" for="uk_{{ $stok->stok_id }}">
                                 {{ $stok->ukuran_sepatu }}
                             </label>
                         @endforeach
@@ -310,7 +312,7 @@
 
                     {{-- CTA Buttons --}}
                     <div class="d-grid gap-2">
-                        <a href="https://wa.me/6287762951839?text=Halo,%20saya%20ingin%20membeli%20{{ urlencode($sepatu->nama_sepatu) }}"
+                        <a href="https://wa.me/6282143690101?text=Halo,%20saya%20ingin%20membeli%20{{ urlencode($sepatu->nama_sepatu) }},%20apakah%20masih%20tersedia?"
                            target="_blank"
                            class="btn btn-fas-orange btn-lg"
                            style="font-size:1rem;">
