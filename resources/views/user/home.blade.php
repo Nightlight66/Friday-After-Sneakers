@@ -11,154 +11,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 
     <style>
-        /* ── CSS Variables ─────────────────────────── */
-        :root {
-            --fas-black:   #0a0a0a;
-            --fas-dark:    #111111;
-            --fas-surface: #1a1a1a;
-            --fas-border:  #2a2a2a;
-            --fas-white:   #f5f5f5;
-            --fas-muted:   #888888;
-            --fas-orange:  #ff5c00;
-
-            --fas-font-display: 'Bebas Neue', sans-serif;
-            --fas-font-cond:    'Barlow Condensed', sans-serif;
-        }
-
-        body {
-            background: var(--fas-black);
-            color: var(--fas-white);
-            font-family: var(--fas-font-cond), sans-serif;
-        }
-
-        /* ── Buttons ───────────────────────────────── */
-        .btn-fas-orange {
-            background: var(--fas-orange);
-            color: #fff;
-            border: 1px solid var(--fas-orange);
-            font-family: var(--fas-font-cond);
-            font-weight: 700;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            border-radius: 0;
-            transition: background .2s, color .2s;
-        }
-        .btn-fas-orange:hover {
-            background: transparent;
-            color: var(--fas-orange);
-        }
-        .btn-fas-outline {
-            background: transparent;
-            color: var(--fas-white);
-            border: 1px solid var(--fas-border);
-            font-family: var(--fas-font-cond);
-            font-weight: 700;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            border-radius: 0;
-            transition: border-color .2s, color .2s;
-        }
-        .btn-fas-outline:hover {
-            border-color: var(--fas-orange);
-            color: var(--fas-orange);
-        }
-
-        /* ── Section Labels ────────────────────────── */
-        .section-label {
-            font-family: var(--fas-font-cond);
-            font-size: .78rem;
-            font-weight: 700;
-            letter-spacing: .2em;
-            text-transform: uppercase;
-            color: var(--fas-orange);
-            margin-bottom: .5rem;
-        }
-        .section-title {
-            font-family: var(--fas-font-display);
-            font-size: clamp(2.2rem, 5vw, 3.5rem);
-            color: var(--fas-white);
-            line-height: .95;
-            letter-spacing: -.01em;
-        }
-
-        /* ── Product Card ──────────────────────────── */
-        .product-card {
-            background: var(--fas-surface);
-            border: 1px solid var(--fas-border);
-            transition: border-color .25s, transform .25s;
-            overflow: hidden;
-        }
-        .product-card:hover {
-            border-color: var(--fas-orange);
-            transform: translateY(-4px);
-        }
-        .product-card img {
-            width: 100%;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            display: block;
-            transition: transform .4s;
-        }
-        .product-card:hover img { transform: scale(1.04); }
-        .product-card .card-body { padding: 1rem; }
-        .product-brand {
-            font-size: .72rem;
-            letter-spacing: .15em;
-            text-transform: uppercase;
-            color: var(--fas-orange);
-            font-weight: 700;
-        }
-        .product-name {
-            font-family: var(--fas-font-display);
-            font-size: 1.15rem;
-            color: var(--fas-white);
-            line-height: 1.1;
-            margin: .3rem 0;
-        }
-        .product-price {
-            font-family: var(--fas-font-cond);
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--fas-white);
-        }
-        .stok-badge { font-size: .7rem; border-radius: 0; }
-
-        /* ── Navbar ────────────────────────────────── */
-        .fas-navbar {
-            background: rgba(10,10,10,.95);
-            border-bottom: 1px solid var(--fas-border);
-            backdrop-filter: blur(8px);
-        }
-        .fas-navbar .navbar-brand {
-            font-family: var(--fas-font-display);
-            font-size: 1.4rem;
-            letter-spacing: .05em;
-            color: var(--fas-white) !important;
-        }
-        .fas-navbar .nav-link {
-            font-family: var(--fas-font-cond);
-            font-weight: 700;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            font-size: .85rem;
-            color: var(--fas-muted) !important;
-            transition: color .2s;
-        }
-        .fas-navbar .nav-link:hover,
-        .fas-navbar .nav-link.active { color: var(--fas-white) !important; }
-
-        /* ── Animations ────────────────────────────── */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+        
     </style>
 </head>
 <body>
     
     {{-- ── NAVBAR ─────────────────────────────────── --}}
     @include('layout.navbar')
-    
+
     {{-- Flash Messages --}}
     @if(session('error'))
         <div class="alert alert-danger rounded-0 mb-0">{{ session('error') }}</div>
@@ -283,7 +143,6 @@
                             @endif
                         </div>
  
-                        {{-- Decorative border --}}
                         <div style="position:absolute;top:-12px;right:-12px;width:100%;height:100%;
                                     border:1px solid var(--fas-orange);z-index:-1;pointer-events:none;"></div>
                     </div>
@@ -292,8 +151,8 @@
         </div>
     </section>
 
-    ── KATEGORI STRIP ─────────────────────────────
-    @if(isset($kategori) && $kategori->count())
+    {{-- ── KATEGORI STRIP ───────────────────────────── --}}
+    @if($kategori)
     <div style="background:var(--fas-surface);border-top:1px solid var(--fas-border);
                 border-bottom:1px solid var(--fas-border);padding:.6rem 0;overflow:hidden;">
         <div class="container-fluid">
@@ -325,7 +184,7 @@
                 </div>
             </div>
 
-            @if($sepatu && $sepatu->count())
+            @if($sepatu)
             <div class="row g-3">
                 @foreach ($sepatu as $data)
                 <div class="col-6 col-md-4 col-lg-3">

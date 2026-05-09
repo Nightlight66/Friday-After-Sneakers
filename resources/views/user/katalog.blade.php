@@ -6,7 +6,8 @@
     <title>Katalog Sepatu - Friday After Sneakers</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+
 
     <style>
         :root {
@@ -18,13 +19,16 @@
             --fas-muted:   #888888;
             --fas-orange:  #ff5c00;
             --fas-font-display: 'Bebas Neue', sans-serif;
+            --fas-font-body:    'Barlow', sans-serif;
             --fas-font-cond:    'Barlow Condensed', sans-serif;
+            --fas-orange2:      #FF8A3D;
         }
 
         body {
             background: var(--fas-black);
             color: var(--fas-white);
-            font-family: var(--fas-font-cond), sans-serif;
+            font-family: var(--fas-font-body);
+            letter-spacing: 0.01em;
         }
 
         /* ── Navbar ────────────────────────────────── */
@@ -35,35 +39,46 @@
         }
         .fas-navbar .navbar-brand {
             font-family: var(--fas-font-display);
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             letter-spacing: .05em;
             color: var(--fas-white) !important;
         }
         .fas-navbar .nav-link {
             font-family: var(--fas-font-cond);
-            font-weight: 700;
-            letter-spacing: .1em;
+            font-weight: 600;
+            letter-spacing: .12em;
             text-transform: uppercase;
-            font-size: .85rem;
+            font-size: .9rem;
             color: var(--fas-muted) !important;
+            padding: 1.5rem 1rem !important;
             transition: color .2s;
+            position: relative;
         }
         .fas-navbar .nav-link:hover,
         .fas-navbar .nav-link.active { color: var(--fas-white) !important; }
+        .fas-navbar .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 1rem; right: 1rem;
+            height: 2px;
+            background: var(--fas-orange);
+        }
 
         /* ── Buttons ───────────────────────────────── */
         .btn-fas-orange {
             background: var(--fas-orange);
             color: #fff;
-            border: 1px solid var(--fas-orange);
+            border: none;
             font-family: var(--fas-font-cond);
             font-weight: 700;
-            letter-spacing: .08em;
+            font-size: 0.85rem;
+            letter-spacing: .1em;
             text-transform: uppercase;
             border-radius: 0;
-            transition: background .2s, color .2s;
+            padding: 0.6rem 1.4rem;
+            transition: background .2s, transform .1s;
         }
-        .btn-fas-orange:hover { background: transparent; color: var(--fas-orange); }
+        .btn-fas-orange:hover { background: var(--fas-orange2); color: #fff; transform: translateY(-1px); }
 
         .btn-fas-outline {
             background: transparent;
@@ -104,6 +119,7 @@
             position: sticky;
             top: 80px;
         }
+
         .filter-title {
             font-family: var(--fas-font-cond);
             font-weight: 700;
@@ -162,9 +178,9 @@
             background: var(--fas-surface);
             border: 1px solid var(--fas-border);
             color: var(--fas-white);
-            padding: .7rem 1rem .7rem 2.8rem;
+            padding: .8rem 1rem .8rem 2.8rem;
             width: 100%;
-            font-family: var(--fas-font-cond);
+            font-family: var(--fas-font-body);
             font-size: .95rem;
             border-radius: 0;
             outline: none;
@@ -185,8 +201,8 @@
             background: var(--fas-surface);
             border: 1px solid var(--fas-border);
             color: var(--fas-white);
-            padding: .55rem .9rem;
-            font-family: var(--fas-font-cond);
+            padding: .75rem 1rem;
+            font-family: var(--fas-font-body);
             font-size: .9rem;
             border-radius: 0;
             outline: none;
@@ -237,10 +253,17 @@
             line-height: 1.2;
         }
         .product-price {
-            font-family: var(--fas-font-cond);
-            font-size: 1rem; font-weight: 700; color: var(--fas-white);
+            font-family: var(--fas-font-display);
+            font-size: 1.3rem;
+            color: var(--fas-white);
+            letter-spacing: 0.03em;
         }
-        .stok-badge { font-size: .7rem; border-radius: 0; }
+        .stok-badge {
+            font-size: .7rem;
+            font-family: var(--fas-font-cond);
+            font-weight: 600;
+            border-radius: 0;
+        }
 
         /* ── Breadcrumb ────────────────────────────── */
         .breadcrumb-item a {
@@ -303,7 +326,7 @@
 
                     {{-- Kategori --}}
                     <div class="filter-sidebar mb-3">
-                        <div class="filter-title">Kategori</div>
+                        <div class="filter-title">Kategori</div>    
                         <a href="{{ route('user.katalog', array_merge(request()->all(), ['kategori' => 0])) }}"
                            class="filter-item {{ request('kategori', 0) == 0 ? 'active-filter' : '' }}">
                             <span class="filter-dot"></span> Semua Kategori

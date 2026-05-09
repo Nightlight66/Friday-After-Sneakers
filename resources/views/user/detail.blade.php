@@ -311,6 +311,12 @@
                     <hr class="fas-divider">
 
                     {{-- CTA Buttons --}}
+                    @if($sepatu->stok_sekarang <= 0)
+                    <div class="d-grid gap-2">
+                        <a href={{ route('user.katalog') }} class="btn btn-fas-orange btn-lg" style="font-size:1rem;">
+                            <i class="bi me-2"></i>Barang Habis
+                        </a>
+                    @else
                     <div class="d-grid gap-2">
                         <a href="https://wa.me/6282143690101?text=Halo,%20saya%20ingin%20membeli%20{{ urlencode($sepatu->nama_sepatu) }},%20apakah%20masih%20tersedia?"
                            target="_blank"
@@ -318,6 +324,7 @@
                            style="font-size:1rem;">
                             <i class="bi bi-whatsapp me-2"></i>Beli via WhatsApp
                         </a>
+                    @endif
                         <a href="{{ route('user.katalog') }}" class="btn btn-fas-outline"
                            style="font-size:.9rem;">
                             <i class="bi bi-arrow-left me-1"></i>Kembali ke Katalog
