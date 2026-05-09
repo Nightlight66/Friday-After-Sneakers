@@ -259,21 +259,7 @@
 <body>
 
     {{-- ── NAVBAR ─────────────────────────────────── --}}
-    <nav class="navbar navbar-expand-lg fas-navbar sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">Friday After Sneakers</a>
-            <button class="navbar-toggler border-secondary" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center gap-1">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('user.home') }}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="{{ route('user.katalog') }}">Katalog</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    @include('layout.navbar')
 
     @if(session('error'))
         <div class="alert alert-danger rounded-0 mb-0">{{ session('error') }}</div>
@@ -475,16 +461,16 @@
                                         <div class="product-price">
                                             Rp {{ number_format($data->harga_sepatu, 0, ',', '.') }}
                                         </div>
-                                        {{-- @php $stok = $data->stokSepatu->sum('jumlah_stok') @endphp --}}
-                                        {{-- @if($stok <= 0)
+                                        @php $stok = $data->stok_sepatu->sum('jumlah_stok') @endphp
+                                        @if($stok <= 0)
                                             <span class="stok-badge badge bg-danger">Habis</span>
                                         @elseif($stok <= 5)
                                             <span class="stok-badge badge bg-warning text-dark">
                                                 Sisa {{ $stok }}
                                             </span>
                                         @else
-                                            <span class="stok-badge badge bg-success">Ready</span>
-                                        @endif --}}
+                                            <span class="stok-badge badge bg-success">Tersedia</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -509,6 +495,9 @@
             </div>{{-- end col-lg-9 --}}
         </div>{{-- end row --}}
     </div>{{-- end container --}}
+    <footer>
+        @include('layout.footer')
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
