@@ -141,7 +141,6 @@
             color: var(--fas-muted);
             transition: color .2s;
             text-decoration: none;
-            font-family: var(--fas-font-cond);
         }
         .filter-item:hover,
         .filter-item.active-filter { color: var(--fas-white); }
