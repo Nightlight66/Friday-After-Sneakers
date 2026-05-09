@@ -270,26 +270,6 @@
                 <ul class="navbar-nav ms-auto align-items-center gap-1">
                     <li class="nav-item"><a class="nav-link" href="{{ route('user.home') }}">Home</a></li>
                     <li class="nav-item"><a class="nav-link active" href="{{ route('user.katalog') }}">Katalog</a></li>
-                    @auth
-                        <li class="nav-item">
-                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                                @csrf
-                                <button type="submit"
-                                    class="nav-link btn btn-fas-orange btn-sm ms-2 px-3 border-0"
-                                    style="font-size:.78rem;">
-                                    {{ Auth::user()->nama_lengkap }}
-                                    <i class="bi bi-box-arrow-right ms-1"></i>
-                                </button>
-                            </form>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a class="btn btn-fas-outline btn-sm ms-2 px-3" href="{{ route('login') }}"
-                               style="font-size:.78rem;">
-                                <i class="bi bi-box-arrow-in-right me-1"></i>Login
-                            </a>
-                        </li>
-                    @endauth
                 </ul>
             </div>
         </div>
@@ -336,7 +316,7 @@
                     </div>
 
                     {{-- Kategori --}}
-                    {{-- <div class="filter-sidebar mb-3">
+                    <div class="filter-sidebar mb-3">
                         <div class="filter-title">Kategori</div>
                         <a href="{{ route('user.katalog', array_merge(request()->all(), ['kategori' => 0])) }}"
                            class="filter-item {{ request('kategori', 0) == 0 ? 'active-filter' : '' }}">
@@ -349,7 +329,7 @@
                             {{ $kat->nama_kategori }}
                         </a>
                         @endforeach
-                    </div> --}}
+                    </div>
 
                     {{-- Rentang Harga --}}
                     <div class="filter-sidebar mb-3">

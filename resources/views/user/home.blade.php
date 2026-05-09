@@ -279,17 +279,24 @@
                 {{-- Hero Image Placeholder --}}
                 <div class="col-lg-5 d-none d-lg-flex justify-content-center">
                     <div class="position-relative" style="width:420px;height:420px;">
-                        <div style="position:absolute;inset:0;background:var(--fas-surface);
-                                    border:1px solid var(--fas-border);
-                                    display:flex;align-items:center;justify-content:center;">
-                            <div style="text-align:center;">
-                                <i class="bi bi-image" style="font-size:4rem;color:var(--fas-border);"></i>
-                                <p style="color:var(--fas-muted);font-size:.8rem;margin-top:.5rem;
-                                          font-family:var(--fas-font-cond);letter-spacing:.1em;">
-                                    HERO PRODUCT IMAGE
-                                </p>
-                            </div>
+ 
+                        @php $heroSepatu = $sepatu->first(); @endphp
+ 
+                        <div style="position:absolute;inset:0;border:1px solid var(--fas-border);
+                                    overflow:hidden;background:var(--fas-surface);">
+                            @if($heroSepatu && $heroSepatu->gambar_sepatu)
+                                <img src="{{ asset('storage/' . $heroSepatu->gambar_sepatu) }}"
+                                     alt="{{ $heroSepatu->nama_sepatu }}"
+                                     style="width:100%;height:100%;object-fit:cover;display:block;">
+                            @else
+                                <div style="width:100%;height:100%;display:flex;align-items:center;
+                                            justify-content:center;">
+                                    <i class="bi bi-image"
+                                       style="font-size:4rem;color:var(--fas-border);"></i>
+                                </div>
+                            @endif
                         </div>
+ 
                         {{-- Decorative border --}}
                         <div style="position:absolute;top:-12px;right:-12px;width:100%;height:100%;
                                     border:1px solid var(--fas-orange);z-index:-1;pointer-events:none;"></div>
@@ -361,14 +368,14 @@
                                     <div class="product-price">
                                         Rp {{ number_format($data->harga_sepatu, 0, ',', '.') }}
                                     </div>
-                                    {{-- @php $stok = $data->stokSepatu->sum('jumlah_stok') @endphp
+                                    @php $stok = $data->stok_sepatu->sum('jumlah_stok') @endphp
                                     @if($stok <= 0)
                                         <span class="stok-badge badge bg-danger">Habis</span>
                                     @elseif($stok <= 5)
                                         <span class="stok-badge badge bg-warning text-dark">Sisa {{ $stok }}</span>
                                     @else
                                         <span class="stok-badge badge bg-success">Tersedia</span>
-                                    @endif --}}
+                                    @endif
                                 </div>
                             </div>
                         </div>
