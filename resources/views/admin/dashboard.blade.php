@@ -28,11 +28,28 @@
     <div class="container">
         <!-- Header Section -->
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="mb-0">Daftar Sepatu</h4>
+            <div>
+                <h4 class="mb-0">Manajemen Produk Sepatu</h4>
+                <p class="text-muted small mb-0">Kelola data sepatu dan laporan penjualan</p>
+            </div>
             <a href="{{ route('create-sepatu') }}" class="btn btn-primary">
-                <i class="bi bi-plus-lg me-1"></i> Tambah Data
+                <i class="bi bi-plus-lg me-1"></i> Tambah Sepatu
             </a>
         </div>
+
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-tabs mb-4" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a href="{{ route('dashboard') }}" class="nav-link active">
+                    <i class="bi bi-shoe2 me-2"></i> Daftar Sepatu
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a href="{{ route('laporan-penjualan.index') }}" class="nav-link">
+                    <i class="bi bi-graph-up me-2"></i> Laporan Penjualan
+                </a>
+            </li>
+        </ul>
 
         <!-- Table Data -->
         <div class="card shadow-sm">
@@ -45,8 +62,10 @@
                                 <th>Gambar</th>
                                 <th>Nama Sepatu</th>
                                 <th>Merk</th>
+                                <th>Kategori</th>
+                                <th>Deskripsi</th>
                                 <th>Ukuran</th>
-                                <th>Jumlah Stok</th>
+                                <th>Stok</th>
                                 <th>Harga</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
@@ -58,29 +77,39 @@
                                 <td>
                                     <img src="{{ asset('storage/'.$data->gambar_sepatu) }}" alt="Sepatu" class="rounded border" style="width: 60px; height: 60px; object-fit: cover;">
                                 </td>
-                                <td>{{ $data->nama_sepatu }}</td>
+                                <td><strong>{{ $data->nama_sepatu }}</strong></td>
                                 <td>{{ $data->merk_sepatu }}</td>
                                 <td>
+                                    @if($data->kategori)
+                                        <span class="badge bg-info">{{ $data->kategori->nama_kategori }}</span>
+                                    @else
+                                        <span class="text-muted small">-</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <small class="text-muted">{{ Str::limit($data->deskripsi_sepatu, 50) }}</small>
+                                </td>
+                                <td>
                                     @foreach($data->stok_sepatu as $stok)
-                                            {{ $stok->ukuran_sepatu }}
+                                        <span class="badge bg-secondary">{{ $stok->ukuran_sepatu }}</span>
                                     @endforeach
                                 </td>
                                 <td>
                                     @if($data->stok_sepatu->isNotEmpty())
-                                        {{ $data->stok_sepatu->first()->jumlah_stok }}
+                                        <span class="badge bg-success">{{ $data->stok_sepatu->first()->jumlah_stok }}</span>
                                     @else
-                                        <span class="text-muted small">Stok kosong</span>
+                                        <span class="badge bg-danger">0</span>
                                     @endif
                                 </td>
-                                <td>Rp {{ number_format($data->harga_sepatu, 0, ',', '.') }}</td>                                
+                                <td><strong style="color: #ff5c00;">Rp {{ number_format($data->harga_sepatu, 0, ',', '.') }}</strong></td>                                
                                 <td class="text-center">
                                     <a href="{{ route('edit-sepatu', $data->sepatu_id) }}" class="btn btn-sm btn-outline-primary" title="Edit">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <form action="{{ route('delete-sepatu', $data->sepatu_id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('delete-sepatu', $data->sepatu_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus sepatu ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger" title="Hapus" data-bs-toggle="modal" data-bs-target="#hapusModal">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Hapus">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </form>
@@ -89,23 +118,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Konfirmasi Hapus -->
-    <div class="modal fade" id="hapusModal" tabindex="-1">
-        <div class="modal-dialog modal-sm modal-dialog-centered">
-            <div class="modal-content text-center">
-                <div class="modal-body p-4">
-                    <i class="bi bi-exclamation-circle text-danger mb-3" style="font-size: 3rem;"></i>
-                    <h5 class="mb-3">Yakin hapus data?</h5>
-                    <p class="text-muted text-sm">Data sepatu ini akan dihapus secara permanen.</p>
-                    <div class="d-flex justify-content-center gap-2">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-danger">Hapus</button>
-                    </div>
                 </div>
             </div>
         </div>
