@@ -13,15 +13,20 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
-            <a class="navbar-brand" href="index.html">Admin Sepatu</a>
-            <li class="nav-item">
-                <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                    @csrf
-                    <button type="submit" class="nav-link btn btn-danger btn-sm ms-2 px-3 text-white border-0" style="background-color: #dc3545;">
-                        <i class="bi bi-box-arrow-right"></i> Logout
-                    </button>
-                </form>
-            </li>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto"> <li class="nav-item">
+                        <a href="{{ route('user.home') }}" class="nav-link {{ request()->routeIs('user.home') ? 'active' : '' }}">
+                            <i class="bi bi-house-door me-1"></i> Home
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <a class="navbar-brand me-0">Admin Sepatu</a>
         </div>
     </nav>
 
@@ -41,7 +46,7 @@
         <ul class="nav nav-tabs mb-4" role="tablist">
             <li class="nav-item" role="presentation">
                 <a href="{{ route('dashboard') }}" class="nav-link active">
-                    <i class="bi bi-shoe2 me-2"></i> Daftar Sepatu
+                    <i class="bi bi-house me-2"></i> Daftar Sepatu
                 </a>
             </li>
             <li class="nav-item" role="presentation">
@@ -50,6 +55,19 @@
                 </a>
             </li>
         </ul>
+        <!-- Flash Messages -->
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-circle me-2"></i>{{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
 
         <!-- Table Data -->
         <div class="card shadow-sm">
