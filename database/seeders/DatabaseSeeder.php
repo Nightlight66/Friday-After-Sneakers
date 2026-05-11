@@ -27,21 +27,20 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        // DB::table('kategori_sepatu')->insert([
-        //     ['nama_kategori' => 'Running Shoes'],
-        //     ['nama_kategori' => 'Basketball Shoes'],
-        //     ['nama_kategori' => 'Casual Sneakers'],
-        //     ['nama_kategori' => 'High Heels'],
-        //     ['nama_kategori' => 'Boots'],
-        // ]);
+        DB::table('kategori_sepatu')->insert([
+            ['nama_kategori' => 'Running Shoes'],
+            ['nama_kategori' => 'Basketball Shoes'],
+            ['nama_kategori' => 'Casual Sneakers'],
+            ['nama_kategori' => 'Skateboarding'],
+        ]);
 
-        // DB::table('users')->insert([
-        //     'nama_lengkap' => 'admin',
-        //     'email' => 'admin@example.com',
-        //     'password' => Hash::make('password'),
-        //     'no_telepon' => '000000000000',
-        //     'role' => 'admin',
-        // ]);
+        DB::table('users')->insert([
+            'nama_lengkap' => 'admin',
+            'email' => 'admin@example.com',
+            'password' => Hash::make('password'),
+            'no_telepon' => '000000000000',
+            'role' => 'admin',
+        ]);
 
     //     DB::table('users')->insert([
     //         'nama_lengkap' => 'Test User',
