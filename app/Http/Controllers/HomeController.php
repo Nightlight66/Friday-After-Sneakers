@@ -22,29 +22,29 @@ class HomeController extends Controller
     }
 
     public function katalog(Request $request){
-    $query = Sepatu::with(['kategori']);
+        $query = Sepatu::with(['kategori']);
 
-    if ($request->filled('q'))
-        $query->where('nama_sepatu', 'like', '%'.$request->q.'%');
+        if ($request->filled('q'))
+            $query->where('nama_sepatu', 'like', '%'.$request->q.'%');
 
-    if ($request->filled('kategori') && $request->kategori > 0)
-        $query->where('kategori_id', $request->kategori);
+        if ($request->filled('kategori') && $request->kategori > 0)
+            $query->where('kategori_id', $request->kategori);
 
-    if ($request->filled('harga_min'))
-        $query->where('harga_sepatu', '>=', $request->harga_min);
+        if ($request->filled('harga_min'))
+            $query->where('harga_sepatu', '>=', $request->harga_min);
 
-    if ($request->filled('harga_max'))
-        $query->where('harga_sepatu', '<=', $request->harga_max);
+        if ($request->filled('harga_max'))
+            $query->where('harga_sepatu', '<=', $request->harga_max);
 
-    $sort = $request->get('sort', 'terbaru');
-    $query->orderBy(
-        match($sort) {
-            'harga_asc', 'harga_desc' => 'harga_sepatu',
-            'nama_asc',  'nama_desc'  => 'nama_sepatu',
-            default                   => 'sepatu_id',   // ← ganti created_at
-        },
-        in_array($sort, ['harga_desc', 'nama_desc']) ? 'desc' : 'asc'
-    );
+        $sort = $request->input('sort', 'terbaru');
+        $query->orderBy(
+            match($sort) {
+                'harga_asc', 'harga_desc' => 'harga_sepatu',
+                'nama_asc',  'nama_desc'  => 'nama_sepatu',
+                default                   => 'sepatu_id',   // ← ganti created_at
+            },
+            in_array($sort, ['harga_desc', 'nama_desc']) ? 'desc' : 'asc'
+        );
 
     return view('user.katalog', [
         'sepatu'   => $query->get(),

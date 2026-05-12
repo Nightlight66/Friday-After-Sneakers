@@ -100,7 +100,7 @@
                                     </strong>
                                 </td>
                                 <td>
-                                    {{ DateTime::createFromFormat('m', $p->bulan)->format('F') }} {{ $p->tahun }}
+                                    {{ \Carbon\Carbon::createFromFormat('m', $p->bulan)->locale('id')->translatedFormat('F') }} {{ $p->tahun }} 
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group">

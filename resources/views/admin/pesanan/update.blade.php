@@ -78,7 +78,7 @@
                             <select name="bulan" class="form-select">
                                 @foreach(range(1, 12) as $m)
                                     <option value="{{ $m }}" {{ $pesanan->bulan == $m ? 'selected' : '' }}>
-                                        {{ date('F', mktime(0, 0, 0, $m, 1)) }}
+                                        {{ \Carbon\Carbon::create()->month($m)->locale('id')->translatedFormat('F') }}
                                     </option>
                                 @endforeach
                             </select>
