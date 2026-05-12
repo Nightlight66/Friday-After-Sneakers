@@ -1,106 +1,17 @@
 <?php
-require_once 'includes/auth.php';
-require_once 'includes/db.php';
 $pageTitle = 'Home';
 $activePage = 'home';
 
 // ─── BREADCRUMB ──────────────────────────────────
 // Home page doesn't need breadcrumb, so we skip it.
 
-// Ambil produk featured (8 terbaru)
-$sql = "SELECT s.*, k.nama_kategori,
-        COALESCE(SUM(ss.jumlah_stok), 0) AS total_stok
-        FROM sepatu s
-        LEFT JOIN kategori_produk k ON s.kategori_id = k.kategori_id
-        LEFT JOIN stok_sepatu ss ON s.sepatu_id = ss.sepatu_id
-        GROUP BY s.sepatu_id
-        ORDER BY s.created_at DESC
-        LIMIT 8";
-$featured = $conn->query($sql);
-
-// Ambil kategori
-$kategoriRes = $conn->query("SELECT * FROM kategori_produk ORDER BY nama_kategori");
-$kategoriList = [];
-while ($k = $kategoriRes->fetch_assoc()) $kategoriList[] = $k;
-?>
-<?php include 'includes/header.php'; ?>
-
-<!-- ─── HERO ────────────────────────────────────────── -->
-<section style="padding: 3rem 0 2rem; background: var(--fas-white);">
-    <div class="container">
-        <div class="row align-items-center g-4">
-            <!-- Hero Text -->
-            <div class="col-lg-6 order-2 order-lg-1">
-                <div class="section-label">Welcome to Our Shop</div>
-                <h1 style="font-family:var(--fas-font-cond);font-weight:700;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:-0.02em;line-height:1.1;color:var(--fas-text);margin-bottom:0.75rem;">
-                    SET YOUR<br>SNEAKER<br>STYLE!
-                </h1>
-                <p style="font-size:1.05rem;color:var(--fas-text-muted);max-width:480px;line-height:1.7;margin-bottom:1.5rem;">
-                    Temukan koleksi sneakers authentic pilihan — dari lifestyle hingga running.
-                    Dipercaya ribuan pelanggan selama 7 tahun.
-                </p>
-                <div class="d-flex flex-wrap gap-3">
-                    <a href="katalog.php" class="btn btn-fas-orange"><i class="bi bi-grid me-2"></i>Lihat Katalog</a>
-                    <a href="https://wa.me/6287762951839" target="_blank" class="btn btn-fas-outline"><i class="bi bi-whatsapp me-2"></i>Hubungi Kami</a>
-                </div>
-                <!-- Stats inline -->
-                <div class="d-flex gap-4 mt-4 pt-3" style="border-top:1px solid var(--fas-border);">
-                    <div>
-                        <div style="font-weight:700;font-size:1.6rem;color:var(--fas-orange);">7</div>
-                        <div style="font-size:0.8rem;color:var(--fas-text-muted);">Tahun Berpengalaman</div>
-                    </div>
-                    <div>
-                        <div style="font-weight:700;font-size:1.6rem;color:var(--fas-orange);">1000+</div>
-                        <div style="font-size:0.8rem;color:var(--fas-text-muted);">Produk Terjual</div>
-                    </div>
-                    <div>
-                        <div style="font-weight:700;font-size:1.6rem;color:var(--fas-orange);">100%</div>
-                        <div style="font-size:0.8rem;color:var(--fas-text-muted);">Authentic</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hero Image -->
-            <div class="col-lg-6 order-1 order-lg-2 text-center">
-                <div style="position:relative;display:inline-block;">
-                    <img src="https://images.unsplash.com/photo-1751624310884-0948c93d8f28?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-                         alt="Hero Sneaker" 
-                         style="width:100%;max-width:520px;height:auto;border-radius:12px;box-shadow:var(--shadow-hover);">
-                    <div style="position:absolute;bottom:-12px;left:-12px;width:100%;height:100%;border:2px solid var(--fas-orange);border-radius:12px;z-index:-1;"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ─── KATEGORI STRIP ────────────────────────────── -->
-<?php if (!empty($kategoriList)): ?>
-<div style="background:var(--fas-white);border-bottom:1px solid var(--fas-border);padding:0.8rem 0;">
-    <div class="container">
-        <div class="d-flex gap-2 flex-wrap justify-content-center">
-            <?php foreach ($kategoriList as $kat): ?>
-            <a href="katalog.php?kategori=<?= $kat['kategori_id'] ?>"
-               class="btn btn-fas-outline" style="font-size:0.85rem;padding:0.4rem 1.2rem;">
-                <?= htmlspecialchars($kat['nama_kategori']) ?>
-            </a>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</div>
-<?php endif; ?>
-
-<!-- ─── FEATURED PRODUCTS ─────────────────────────── -->
-<section style="padding: 4rem 0;">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-end mb-4">
-            <div>
-                <div class="section-label">Produk Terbaru</div>
-                <h2 class="section-title">Koleksi Pilihan</h2>
-            </div>
-            <a href="katalog.php" class="btn btn-fas-outline">Lihat Semua <i class="bi bi-arrow-right ms-1"></i></a>
-        </div>
-
-        <?php
+// ─── HARDCODED KATEGORI ─────────────────────────────
+$kategoriList = [
+    ['kategori_id' => 1, 'nama_kategori' => 'Lifestyle'],
+    ['kategori_id' => 2, 'nama_kategori' => 'Running'],
+    ['kategori_id' => 3, 'nama_kategori' => 'Basketball'],
+    ['kategori_id' => 4, 'nama_kategori' => 'Skateboarding'],
+];
 
 // ─── HARDCODED PRODUCTS (12 items with unique images) ────
 $productList = [
@@ -190,6 +101,82 @@ $productList = [
     ],
 ];
 ?>
+<?php include 'includes/header.php'; ?>
+
+<!-- ─── HERO ────────────────────────────────────────── -->
+<section style="padding: 3rem 0 2rem; background: var(--fas-white);">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <!-- Hero Text -->
+            <div class="col-lg-6 order-2 order-lg-1">
+                <div class="section-label">Welcome to Our Shop</div>
+                <h1 style="font-family:var(--fas-font-cond);font-weight:700;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:-0.02em;line-height:1.1;color:var(--fas-text);margin-bottom:0.75rem;">
+                    SET YOUR<br>SNEAKER<br>STYLE!
+                </h1>
+                <p style="font-size:1.05rem;color:var(--fas-text-muted);max-width:480px;line-height:1.7;margin-bottom:1.5rem;">
+                    Temukan koleksi sneakers authentic pilihan — dari lifestyle hingga running.
+                    Dipercaya ribuan pelanggan selama 7 tahun.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="katalog.php" class="btn btn-fas-orange"><i class="bi bi-grid me-2"></i>Lihat Katalog</a>
+                    <a href="https://wa.me/6287762951839" target="_blank" class="btn btn-fas-outline"><i class="bi bi-whatsapp me-2"></i>Hubungi Kami</a>
+                </div>
+                <!-- Stats inline -->
+                <div class="d-flex gap-4 mt-4 pt-3" style="border-top:1px solid var(--fas-border);">
+                    <div>
+                        <div style="font-weight:700;font-size:1.6rem;color:var(--fas-orange);">7</div>
+                        <div style="font-size:0.8rem;color:var(--fas-text-muted);">Tahun Berpengalaman</div>
+                    </div>
+                    <div>
+                        <div style="font-weight:700;font-size:1.6rem;color:var(--fas-orange);">1000+</div>
+                        <div style="font-size:0.8rem;color:var(--fas-text-muted);">Produk Terjual</div>
+                    </div>
+                    <div>
+                        <div style="font-weight:700;font-size:1.6rem;color:var(--fas-orange);">100%</div>
+                        <div style="font-size:0.8rem;color:var(--fas-text-muted);">Authentic</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Image -->
+            <div class="col-lg-6 order-1 order-lg-2 text-center">
+                <div style="position:relative;display:inline-block;">
+                    <img src="https://images.unsplash.com/photo-1751624310884-0948c93d8f28?q=80&w=600&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                         alt="Hero Sneaker" 
+                         style="width:100%;max-width:520px;height:auto;border-radius:12px;box-shadow:var(--shadow-hover);">
+                    <div style="position:absolute;bottom:-12px;left:-12px;width:100%;height:100%;border:2px solid var(--fas-orange);border-radius:12px;z-index:-1;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── KATEGORI STRIP ────────────────────────────── -->
+<?php if (!empty($kategoriList)): ?>
+<div style="background:var(--fas-white);border-bottom:1px solid var(--fas-border);padding:0.8rem 0;">
+    <div class="container">
+        <div class="d-flex gap-2 flex-wrap justify-content-center">
+            <?php foreach ($kategoriList as $kat): ?>
+            <a href="katalog.php?kategori=<?= $kat['kategori_id'] ?>"
+               class="btn btn-fas-outline" style="font-size:0.85rem;padding:0.4rem 1.2rem;">
+                <?= htmlspecialchars($kat['nama_kategori']) ?>
+            </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
+<!-- ─── FEATURED PRODUCTS ─────────────────────────── -->
+<section style="padding: 4rem 0;">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+                <div class="section-label">Produk Terbaru</div>
+                <h2 class="section-title">Koleksi Pilihan</h2>
+            </div>
+            <a href="katalog.php" class="btn btn-fas-outline">Lihat Semua <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
 
         <div id="bulletproofCarousel" style="position:relative; padding:0 50px;">
             <!-- Container with unique ID -->
@@ -287,6 +274,110 @@ $productList = [
 </section>
 
 <style>
+/* ─── CAROUSEL ITEMS ────────────────────────────── */
+.bulletproof-item {
+    flex: 0 0 25%; /* 4 items per row on desktop */
+    max-width: 25%;
+    padding: 0 8px;
+    box-sizing: border-box;
+    min-height: 350px;
+}
+/* ─── PRODUCT CARD ──────────────────────────────── */
+.product-card {
+    height: 100%;
+    border: 1px solid var(--fas-border);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: var(--fas-white);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+.img-wrap {
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    background: var(--fas-light);
+    flex-shrink: 0;
+}
+.img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+}
+.product-card:hover .img-wrap img {
+    transform: scale(1.05);
+}
+.card-body {
+    padding: 1rem 1.2rem 1.2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.product-brand {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--fas-orange);
+    font-weight: 600;
+}
+.product-name {
+    font-family: var(--fas-font-cond);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--fas-text);
+    line-height: 1.2;
+}
+.product-price {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--fas-black);
+}
+/* ─── NAVIGATION BUTTONS ────────────────────────── */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background: var(--fas-white);
+    border: 1px solid var(--fas-border);
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+.carousel-btn:hover {
+    background: var(--fas-orange);
+    border-color: var(--fas-orange);
+}
+.carousel-btn:hover i {
+    color: #fff;
+}
+.carousel-btn.prev { left: -70px; }
+.carousel-btn.next { right: -70px; }
+/* ─── RESPONSIVE ────────────────────────────────── */
+@media (max-width: 992px) {
+    .bulletproof-item { flex: 0 0 33.333%; max-width: 33.333%; } /* 3 items */
+}
+@media (max-width: 768px) {
+    .bulletproof-item { flex: 0 0 50%; max-width: 50%; min-height: 280px; } /* 2 items */
+    .carousel-btn { width: 36px; height: 36px; }
+    .carousel-btn.prev { left: -20px; }
+    .carousel-btn.next { right: -20px; }
+}
+@media (max-width: 480px) {
+    .bulletproof-item { flex: 0 0 100%; max-width: 100%; } /* 1 item */
+}
 </style>
 
 <script>
@@ -305,4 +396,5 @@ function slideCarousel(direction) {
     track.style.transform = `translateX(${translateX}px)`;
 }
 </script>
+
 <?php include 'includes/footer.php'; ?>
