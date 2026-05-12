@@ -1,8 +1,106 @@
 <?php
-require_once 'includes/auth.php';
-require_once 'includes/db.php';
 $pageTitle = 'Katalog Sepatu';
 $activePage = 'katalog';
+
+// ─── HARDCODED PRODUCTS (using the same list as index.php) ────
+$allProducts = [
+    [
+        'id' => 1,
+        'name' => 'Nike Air Force 1 \'07',
+        'cat' => 'Lifestyle',
+        'price' => 1549000,
+        'gambar' => 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400'
+    ],
+    [
+        'id' => 2,
+        'name' => 'Adidas Yeezy Boost 350 V2',
+        'cat' => 'Lifestyle',
+        'price' => 3800000,
+        'gambar' => 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400'
+    ],
+    [
+        'id' => 3,
+        'name' => 'Puma RS-X3',
+        'cat' => 'Lifestyle',
+        'price' => 1275000,
+        'gambar' => 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400'
+    ],
+    [
+        'id' => 4,
+        'name' => 'Converse Chuck 70',
+        'cat' => 'Lifestyle',
+        'price' => 899000,
+        'gambar' => 'https://images.unsplash.com/photo-1654147801991-a9fa8594e900?q=80&w=751&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    ],
+    [
+        'id' => 5,
+        'name' => 'New Balance 990v5 Core',
+        'cat' => 'Running',
+        'price' => 2999000,
+        'gambar' => 'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?q=80&w=812&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    ],
+    [
+        'id' => 6,
+        'name' => 'ASICS Gel-Kayano 29',
+        'cat' => 'Running',
+        'price' => 2450000,
+        'gambar' => 'https://images.unsplash.com/photo-1746206673199-5b75dcec1018?q=80&w=464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    ],
+    [
+        'id' => 7,
+        'name' => 'Hoka Clifton 9',
+        'cat' => 'Running',
+        'price' => 1999000,
+        'gambar' => 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400'
+    ],
+    [
+        'id' => 8,
+        'name' => 'Saucony Endorphin Speed',
+        'cat' => 'Running',
+        'price' => 2150000,
+        'gambar' => 'https://images.unsplash.com/photo-1519415943484-9fa1873496d4?w=400'
+    ],
+    [
+        'id' => 9,
+        'name' => 'Nike Air Jordan 1 Retro High',
+        'cat' => 'Basketball',
+        'price' => 2500000,
+        'gambar' => 'https://images.unsplash.com/photo-1731132198530-e4b2dc51d511?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    ],
+    [
+        'id' => 10,
+        'name' => 'Adidas Harden Vol. 7',
+        'cat' => 'Basketball',
+        'price' => 2850000,
+        'gambar' => 'https://images.unsplash.com/photo-1620794341491-76be6eeb6946?q=80&w=394&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    ],
+    [
+        'id' => 11,
+        'name' => 'Vans Old Skool',
+        'cat' => 'Skateboarding',
+        'price' => 749000,
+        'gambar' => 'https://images.unsplash.com/photo-1626379530580-6a58c5cf1d5e?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    ],
+    [
+        'id' => 12,
+        'name' => 'Nike SB Dunk Low',
+        'cat' => 'Skateboarding',
+        'price' => 1099000,
+        'gambar' => 'https://images.unsplash.com/photo-1692620334820-355161f652a8?q=80&w=933&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    ],
+];
+
+// ─── HARDCODED KATEGORI ─────────────────────────────
+$kategoriList = [
+    ['kategori_id' => 1, 'nama_kategori' => 'Lifestyle'],
+    ['kategori_id' => 2, 'nama_kategori' => 'Running'],
+    ['kategori_id' => 3, 'nama_kategori' => 'Basketball'],
+    ['kategori_id' => 4, 'nama_kategori' => 'Skateboarding'],
+];
+
+// ─── PRICE RANGE ─────────────────────────────────
+$hargaMinAll = min(array_column($allProducts, 'price'));
+$hargaMaxAll = max(array_column($allProducts, 'price'));
 
 // ─── FILTER & SORT PARAMS ────────────────────────
 $sort      = $_GET['sort']      ?? 'terbaru';
@@ -11,66 +109,32 @@ $hargaMin  = (int)($_GET['harga_min'] ?? 0);
 $hargaMax  = (int)($_GET['harga_max'] ?? 0);
 $search    = trim($_GET['q'] ?? '');
 
-// ─── ORDER BY ────────────────────────────────────
-$orderBy = match($sort) {
-    'harga_asc'  => 's.harga ASC',
-    'harga_desc' => 's.harga DESC',
-    'nama_asc'   => 's.nama_sepatu ASC',
-    'nama_desc'  => 's.nama_sepatu DESC',
-    default      => 's.created_at DESC',
-};
+// ─── FILTER PRODUCTS ─────────────────────────────
+$filteredProducts = array_filter($allProducts, function($p) use ($kategori, $hargaMin, $hargaMax, $search) {
+    // Kategori filter
+    if ($kategori > 0) {
+        $catMap = [1 => 'Lifestyle', 2 => 'Running', 3 => 'Basketball', 4 => 'Skateboarding'];
+        if ($catMap[$kategori] !== $p['cat']) return false;
+    }
+    // Harga filter
+    if ($hargaMin > 0 && $p['price'] < $hargaMin) return false;
+    if ($hargaMax > 0 && $p['price'] > $hargaMax) return false;
+    // Search filter
+    if ($search !== '' && stripos($p['name'], $search) === false) return false;
+    return true;
+});
 
-// ─── BUILD QUERY ─────────────────────────────────
-$where = ['1=1'];
-$params = [];
-$types  = '';
-
-if ($kategori > 0) {
-    $where[] = 's.kategori_id = ?';
-    $params[] = $kategori;
-    $types .= 'i';
-}
-if ($hargaMin > 0) {
-    $where[] = 's.harga >= ?';
-    $params[] = $hargaMin;
-    $types .= 'i';
-}
-if ($hargaMax > 0) {
-    $where[] = 's.harga <= ?';
-    $params[] = $hargaMax;
-    $types .= 'i';
-}
-if ($search !== '') {
-    $where[] = 's.nama_sepatu LIKE ?';
-    $params[] = "%$search%";
-    $types .= 's';
-}
-
-$whereStr = implode(' AND ', $where);
-
-$sql = "SELECT s.*, k.nama_kategori,
-        COALESCE(SUM(ss.jumlah_stok),0) AS total_stok
-        FROM sepatu s
-        LEFT JOIN kategori_produk k ON s.kategori_id = k.kategori_id
-        LEFT JOIN stok_sepatu ss ON s.sepatu_id = ss.sepatu_id
-        WHERE $whereStr
-        GROUP BY s.sepatu_id
-        ORDER BY $orderBy";
-
-$stmt = $conn->prepare($sql);
-if (!empty($params)) {
-    $stmt->bind_param($types, ...$params);
-}
-$stmt->execute();
-$result = $stmt->get_result();
-
-// ─── KATEGORI LIST ───────────────────────────────
-$kategoriRes = $conn->query("SELECT * FROM kategori_produk ORDER BY nama_kategori");
-$kategoriList = [];
-while ($k = $kategoriRes->fetch_assoc()) $kategoriList[] = $k;
-
-// ─── PRICE RANGE ─────────────────────────────────
-$priceRange = $conn->query("SELECT MIN(harga) AS min_h, MAX(harga) AS max_h FROM sepatu")->fetch_assoc();
+// ─── SORT PRODUCTS ───────────────────────────────
+$filteredProducts = array_values($filteredProducts); // re-index
+usort($filteredProducts, function($a, $b) use ($sort) {
+    switch($sort) {
+        case 'harga_asc':  return $a['price'] - $b['price'];
+        case 'harga_desc': return $b['price'] - $a['price'];
+        case 'nama_asc':   return strcmp($a['name'], $b['name']);
+        case 'nama_desc':  return strcmp($b['name'], $a['name']);
+        default:           return 0; // terbaru (no change)
+    }
+});
 ?>
 <?php include 'includes/header.php'; ?>
 
@@ -228,7 +292,7 @@ $priceRange = $conn->query("SELECT MIN(harga) AS min_h, MAX(harga) AS max_h FROM
                 </div>
                 <div class="mb-3">
                     <label style="font-size:0.75rem;font-weight:600;color:var(--fas-text-muted);">Max</label>
-                    <input class="fas-input" type="number" name="harga_max" placeholder="Rp <?= number_format($priceRange['max_h'] ?? 0, 0, ',', '.') ?>" value="<?= $hargaMax ?: '' ?>">
+                    <input class="fas-input" type="number" name="harga_max" placeholder="Rp <?= number_format($hargaMaxAll, 0, ',', '.') ?>" value="<?= $hargaMax ?: '' ?>">
                 </div>
                 <button type="submit" class="btn btn-fas-orange w-100">Terapkan Filter</button>
                 <?php if ($hargaMin || $hargaMax || $search || $kategori): ?>
@@ -243,7 +307,7 @@ $priceRange = $conn->query("SELECT MIN(harga) AS min_h, MAX(harga) AS max_h FROM
             <!-- Toolbar -->
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
                 <div style="font-size:0.88rem;color:var(--fas-text-muted);">
-                    <span style="font-weight:600;color:var(--fas-text);"><?= $result->num_rows ?></span> produk ditemukan
+                    <span style="font-weight:600;color:var(--fas-text);"><?= count($filteredProducts) ?></span> produk ditemukan
                     <?php if ($search): ?>
                         untuk "<span style="color:var(--fas-orange);"><?= htmlspecialchars($search) ?></span>"
                     <?php endif; ?>
@@ -291,34 +355,27 @@ $priceRange = $conn->query("SELECT MIN(harga) AS min_h, MAX(harga) AS max_h FROM
             </div>
 
             <!-- Grid -->
-            <?php if ($result->num_rows > 0): ?>
+            <?php if (count($filteredProducts) > 0): ?>
             <div class="row g-3">
-                <?php while ($p = $result->fetch_assoc()): ?>
+                <?php foreach ($filteredProducts as $p): ?>
                 <div class="col-6 col-md-4">
                     <div class="product-card">
-                        <a href="detail.php?id=<?= $p['sepatu_id'] ?>" style="text-decoration:none;">
+                        <a href="detail.php?id=<?= $p['id'] ?>" style="text-decoration:none;">
                             <div class="img-wrap">
-                                <?php $srcGambar = (strpos($p['gambar'], 'http') === 0) ? $p['gambar'] : 'uploads/sepatu/' . $p['gambar']; ?>
-                                <img src="<?= htmlspecialchars($srcGambar) ?>" alt="<?= htmlspecialchars($p['nama_sepatu']) ?>" onerror="this.src='https://placehold.co/400x400/e9ecef/FF5C00?text=No+Image'">
+                                <img src="<?= $p['gambar'] ?>" alt="<?= htmlspecialchars($p['name']) ?>" onerror="this.src='https://placehold.co/400x400/e9ecef/FF5C00?text=No+Image'">
                             </div>
                             <div class="card-body">
-                                <div class="product-brand"><?= htmlspecialchars($p['nama_kategori']) ?></div>
-                                <div class="product-name"><?= htmlspecialchars($p['nama_sepatu']) ?></div>
+                                <div class="product-brand"><?= htmlspecialchars($p['cat']) ?></div>
+                                <div class="product-name"><?= htmlspecialchars($p['name']) ?></div>
                                 <div class="d-flex justify-content-between align-items-center mt-1">
-                                    <span class="product-price"><?= formatRupiah($p['harga']) ?></span>
-                                    <?php if ($p['total_stok'] <= 0): ?>
-                                        <span class="stok-badge habis">Habis</span>
-                                    <?php elseif ($p['total_stok'] <= 5): ?>
-                                        <span class="stok-badge kritis">Sisa <?= $p['total_stok'] ?></span>
-                                    <?php else: ?>
-                                        <span class="stok-badge">Tersedia</span>
-                                    <?php endif; ?>
+                                    <span class="product-price"><?= formatRupiah($p['price']) ?></span>
+                                    <span class="stok-badge">Tersedia</span>
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
-                <?php endwhile; ?>
+                <?php endforeach; ?>
             </div>
             <?php else: ?>
             <div class="text-center py-5" style="color:var(--fas-text-muted);">
