@@ -1,36 +1,20 @@
 <?php
-require_once 'includes/auth.php';
-require_once 'includes/db.php';
-
-if (isLoggedIn()) { header('Location: index.php'); exit; }
-
+// login.php — standalone demo version (no database)
 $error = '';
-$redirect = $_GET['redirect'] ?? '/index.php';
+$success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email    = trim($_POST['email'] ?? '');
+    $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
 
     if ($email && $password) {
-        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $user = $stmt->get_result()->fetch_assoc();
-
-        if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['users_id'];
-            $_SESSION['nama']    = $user['nama_lengkap'];
-            $_SESSION['email']   = $user['email'];
-            $_SESSION['role']    = $user['role'];
-
-            if ($user['role'] === 'admin') {
-                header('Location: admin/index.php');
-            } else {
-                header('Location: ' . $redirect);
-            }
+        // Hardcoded demo credentials
+        if ($email === 'admin@example.com' && $password === 'password') {
+            // Simulate successful login — redirect to home
+            header('Location: index.php?login=success');
             exit;
         } else {
-            $error = 'Email atau password salah.';
+            $error = 'Email atau password salah. (Gunakan admin@example.com / password)';
         }
     } else {
         $error = 'Mohon isi semua field.';
@@ -38,9 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $pageTitle = 'Login';
-?>
-<?php
-// Override header — halaman auth punya layout sendiri
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -126,7 +107,6 @@ $pageTitle = 'Login';
 
 <div class="col auth-right">
     <div class="auth-card">
-        <!-- Mobile Brand -->
         <div class="d-lg-none mb-4">
             <a href="/index.php" class="auth-brand" style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;text-decoration:none;color:var(--fas-white);">
                 FRIDAY<span style="color:var(--fas-orange);">AFTER</span>SNEAKERS
@@ -145,21 +125,17 @@ $pageTitle = 'Login';
         <?php endif; ?>
 
         <form method="POST">
-            <input type="hidden" name="redirect" value="<?= htmlspecialchars($redirect) ?>">
-
             <div class="mb-3">
                 <label class="field-label">Email</label>
                 <input class="fas-input" type="email" name="email"
-                       placeholder="nama@email.com" required
-                       value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+                       placeholder="nama@email.com" required value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
             </div>
 
             <div class="mb-4">
                 <label class="field-label">Password</label>
                 <div class="position-relative">
                     <input class="fas-input" type="password" name="password"
-                           id="pwInput" placeholder="Password kamu" required
-                           style="padding-right:2.8rem;">
+                           id="pwInput" placeholder="Password kamu" required style="padding-right:2.8rem;">
                     <i class="bi bi-eye pw-toggle position-absolute"
                        style="right:.9rem;top:50%;transform:translateY(-50%);"
                        onclick="togglePw()"></i>
