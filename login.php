@@ -93,7 +93,7 @@ $pageTitle = 'Login';
 <body>
 <div class="col-lg-5 d-none d-lg-flex auth-left">
     <div>
-        <a href="/index.php" class="auth-brand">FRIDAY<span>AFTER</span>SNEAKERS</a>
+        <a href="index.php" class="auth-brand">FRIDAY<span>AFTER</span>SNEAKERS</a>
         <p style="color:var(--fas-muted);font-size:.9rem;margin-top:.5rem;">
             Authentic · Trusted · Since 2019
         </p>
@@ -108,7 +108,7 @@ $pageTitle = 'Login';
 <div class="col auth-right">
     <div class="auth-card">
         <div class="d-lg-none mb-4">
-            <a href="/index.php" class="auth-brand" style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;text-decoration:none;color:var(--fas-white);">
+            <a href="index.php" class="auth-brand" style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;text-decoration:none;color:var(--fas-white);">
                 FRIDAY<span style="color:var(--fas-orange);">AFTER</span>SNEAKERS
             </a>
         </div>
