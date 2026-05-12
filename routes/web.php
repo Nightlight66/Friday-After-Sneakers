@@ -5,7 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SepatuController;
 use App\Http\Controllers\PesananController;
-use App\Http\Controllers\LaporanPenjualanBulananController;
+use App\Http\Controllers\LaporanController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/home');
@@ -15,8 +15,8 @@ Route::get('/detail/{sepatu_id}',[HomeController::class, 'detail'])->name('user.
 
 Route::get('/login', [LoginController::class, 'showLoginForm']);
 Route::post('/login', [LoginController::class, 'auth'])->name('login');
-Route::get('/register',[LoginController::class, 'showRegister']);
-Route::post('/register',[LoginController::class, 'register'])->name('register');
+// Route::get('/register',[LoginController::class, 'showRegister']);
+// Route::post('/register',[LoginController::class, 'register'])->name('register');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
@@ -48,5 +48,5 @@ Route::middleware(['auth', 'AuthUser'])->group(function (){
     //Delete Pesanan
     Route::delete('/dashboard/pesanan/delete/{id}', [PesananController::class, 'destroy'])->name('pesanan.destroy');
     //Laporan Penjualan Bulanan
-    Route::get('/dashboard/laporan-penjualan', [LaporanPenjualanBulananController::class, 'index'])->name('laporan-penjualan.index');
+    Route::get('/dashboard/laporan-penjualan', [LaporanController::class, 'index'])->name('laporan-penjualan.index');
 });

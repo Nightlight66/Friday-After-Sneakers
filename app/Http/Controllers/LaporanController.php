@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pesanan;
 use Illuminate\Support\Facades\DB;
 
-class LaporanPenjualanBulananController extends Controller
+class LaporanController extends Controller
 {
     public function index(){
         // Mengambil data dari tabel pesanan, dikelompokkan per bulan dan tahun
