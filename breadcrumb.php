@@ -1,7 +1,4 @@
 <?php
-// Usage: include 'includes/breadcrumb.php';
-// Set $breadcrumbItems before including, e.g.:
-// $breadcrumbItems = [ ['url'=>'/index.php','label'=>'Home'], ['label'=>'Katalog'] ];
 if (!isset($breadcrumbItems)) $breadcrumbItems = [];
 ?>
 <nav aria-label="breadcrumb" style="margin-bottom:1.5rem;">
@@ -15,7 +12,7 @@ if (!isset($breadcrumbItems)) $breadcrumbItems = [];
                     </a>
                 </li>
             <?php else: ?>
-                <li class="breadcrumb-item active" style="color:var(--fas-white);font-weight:600;">
+                <li class="breadcrumb-item active" style="color:var(--fas-text);font-weight:600;">
                     <?= $item['label'] ?>
                 </li>
             <?php endif; ?>
