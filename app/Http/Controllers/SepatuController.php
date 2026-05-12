@@ -5,9 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\models\Sepatu;
+use App\Models\KategoriSepatu;
 
 class SepatuController extends Controller
 {
+    public function dashboard(){
+        $sepatu = Sepatu::all();
+        return view('admin.sepatu.sepatu', compact('sepatu'));
+    }
+
+    public function createSepatu(){
+        $kategori_sepatu = KategoriSepatu::all();
+        return view('admin.sepatu.create-sepatu', compact('kategori_sepatu'));
+    }
+
     public function storeSepatu(Request $request) {
         $validatedData = $request->validate([
             'nama_sepatu' => 'required|string|max:255',
@@ -28,6 +39,11 @@ class SepatuController extends Controller
         Sepatu::create($validatedData);
 
         return redirect()->route('dashboard')->with('success', 'Sepatu berhasil ditambahkan!');
+    }
+    
+    public function editSepatu($id){
+        $sepatu = Sepatu::findOrFail($id);
+        return view('admin.sepatu.edit-sepatu', compact('sepatu'));
     }
 
     public function updateSepatu(Request $request, $id) {

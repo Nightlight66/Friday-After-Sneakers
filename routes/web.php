@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SepatuController;
 use App\Http\Controllers\PesananController;
@@ -21,14 +20,14 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 Route::middleware(['auth', 'AuthUser'])->group(function (){
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [SepatuController::class, 'dashboard'])->name('dashboard');
     
     //Create Sepatu
-    Route::get('/dashboard/create-sepatu', [AdminController::class, 'createSepatu'])->name('create-sepatu');
+    Route::get('/dashboard/create-sepatu', [SepatuController::class, 'createSepatu'])->name('create-sepatu');
     Route::post('/store-sepatu', [SepatuController::class, 'storeSepatu'])->name('store-sepatu');
     
     //Edit &Update Sepatu
-    Route::get('/dashboard/edit-sepatu/{sepatu_id}', [AdminController::class, 'editSepatu'])->name('edit-sepatu');
+    Route::get('/dashboard/edit-sepatu/{sepatu_id}', [SepatuController::class, 'editSepatu'])->name('edit-sepatu');
     Route::put('/update-sepatu/{sepatu_id}', [SepatuController::class, 'updateSepatu'])->name('update-sepatu');
     
     //Delete Sepatu
