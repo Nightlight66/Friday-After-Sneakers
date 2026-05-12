@@ -363,7 +363,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 <!-- ─── MAIN NAVBAR ────────────────────────────────────── -->
 <nav class="navbar fas-navbar">
     <div class="container">
-        <a class="navbar-brand" href="/index.php">FRIDAY<span>AFTER</span>SNEAKERS</a>
+        <a class="navbar-brand" href="index.php">FRIDAY<span>AFTER</span>SNEAKERS</a>
 
         <button class="navbar-toggler border-0 p-0" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navMenu">
