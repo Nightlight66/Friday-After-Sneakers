@@ -3,7 +3,7 @@
 $pageTitle = 'Laporan Penjualan';
 $activePage = 'laporan';
 $breadcrumbItems = [
-    ['url' => '/index.php', 'label' => 'Home'],
+    ['url' => 'index.php', 'label' => 'Home'],
     ['label' => 'Laporan Penjualan']
 ];
 include 'includes/header.php';
