@@ -2,7 +2,7 @@
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
 
-if (isLoggedIn()) { header('Location: /index.php'); exit; }
+if (isLoggedIn()) { header('Location: index.php'); exit; }
 
 $error = '';
 $success = '';
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <div class="auth-card">
     <div class="mb-4">
-        <a href="/index.php" class="auth-brand">FRIDAY<span>AFTER</span>SNEAKERS</a>
+        <a href="index.php" class="auth-brand">FRIDAY<span>AFTER</span>SNEAKERS</a>
     </div>
 
     <div class="auth-title">DAFTAR</div>
