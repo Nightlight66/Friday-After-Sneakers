@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Sepatu extends Model
 {
@@ -15,23 +16,27 @@ class Sepatu extends Model
         'merk_sepatu',
         'deskripsi_sepatu',
         'kategori_id',
+        'ukuran_sepatu',
+        'jumlah_stok',
         'harga_sepatu',
         'gambar_sepatu',
     ];
 
-    public function getStokSekarangAttribute()
+    protected function daftarUkuran(): Attribute
     {
-        return optional($this->stok_sepatu->first())->jumlah_stok ?? 0;
+        return Attribute::make(
+            get: function () {
+                if (empty($this->ukuran_sepatu)) {
+                    return [];
+                }
+                
+                return array_map('trim', explode(',', $this->ukuran_sepatu));
+            }
+        );
     }
 
     public function kategori()
     {
         return $this->belongsTo(KategoriSepatu::class, 'kategori_id', 'kategori_id');
     }
-
-    public function stok_sepatu()
-    {
-        return $this->hasMany(StokSepatu::class, 'sepatu_id', 'sepatu_id');
-    }
-
 }

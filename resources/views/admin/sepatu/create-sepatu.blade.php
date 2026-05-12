@@ -64,7 +64,7 @@
                                     <div class="form-text">Gunakan koma (,) sebagai pemisah antar ukuran.</div>                            
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="jumlah_stok" class="form-label fw-semibold">Stok Tersedia</label>
+                                    <label for="jumlah_stok" class="form-label fw-semibold">Jumlah Stok</label>
                                     <input type="number" id="jumlah_stok" name="jumlah_stok" class="form-control" placeholder="0" min="0" required>
                                 </div>
                             </div>

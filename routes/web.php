@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SepatuController;
+use App\Http\Controllers\PesananController;
 use App\Http\Controllers\LaporanPenjualanBulananController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,24 +23,30 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware(['auth', 'AuthUser'])->group(function (){
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     
-    //Create
+    //Create Sepatu
     Route::get('/dashboard/create-sepatu', [AdminController::class, 'createSepatu'])->name('create-sepatu');
     Route::post('/store-sepatu', [SepatuController::class, 'storeSepatu'])->name('store-sepatu');
     
-    //Update
+    //Edit &Update Sepatu
     Route::get('/dashboard/edit-sepatu/{sepatu_id}', [AdminController::class, 'editSepatu'])->name('edit-sepatu');
     Route::put('/update-sepatu/{sepatu_id}', [SepatuController::class, 'updateSepatu'])->name('update-sepatu');
     
-    //Delete
+    //Delete Sepatu
     Route::delete('/dashboard/delete-sepatu/{sepatu_id}',[SepatuController::class, 'deleteSepatu'])->name('delete-sepatu');
 
-    // Laporan Penjualan Bulanan Routes
-    Route::resource('laporan-penjualan', LaporanPenjualanBulananController::class)->names([
-        'index' => 'laporan-penjualan.index',
-        'create' => 'laporan-penjualan.create',
-        'store' => 'laporan-penjualan.store',
-        'edit' => 'laporan-penjualan.edit',
-        'update' => 'laporan-penjualan.update',
-        'destroy' => 'laporan-penjualan.destroy',
-    ]);
+    //View Pesanan
+    Route::get('/dashboard/pesanan',[PesananController::class, 'showPesanan'])->name('pesanan.index');
+
+    //Create Pesanan
+    Route::get('/dashboard/pesanan/create',[PesananController::class, 'create'])->name('pesanan.create');
+    Route::post('/dashboard/pesanan/store', [PesananController::class, 'store'])->name('pesanan.store');
+
+    //Edit & Update Pesanan
+    Route::get('/dashboard/pesanan/edit/{id}', [PesananController::class, 'edit'])->name('pesanan.edit');
+    Route::put('/dashboard/pesanan/update/{id}', [PesananController::class, 'update'])->name('pesanan.update');
+
+    //Delete Pesanan
+    Route::delete('/dashboard/pesanan/delete/{id}', [PesananController::class, 'destroy'])->name('pesanan.destroy');
+    //Laporan Penjualan Bulanan
+    Route::get('/dashboard/laporan-penjualan', [LaporanPenjualanBulananController::class, 'index'])->name('laporan-penjualan.index');
 });

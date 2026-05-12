@@ -93,8 +93,8 @@
                 <ul class="list-unstyled d-flex flex-column gap-2">
                     <li><a href="{{ route('user.home') }}" class="footer-link">Home</a></li>
                     <li><a href="{{ route('user.katalog') }}" class="footer-link">Katalog</a></li>
-                    <li><a href="" class="footer-link">Tentang Kami</a></li>
-                    <li><a href="" class="footer-link">Kontak</a></li>
+                    {{-- <li><a href="" class="footer-link">Tentang Kami</a></li>
+                    <li><a href="" class="footer-link">Kontak</a></li> --}}
                 </ul>
             </div>
 

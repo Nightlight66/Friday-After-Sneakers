@@ -35,7 +35,7 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
                 <h4 class="mb-0">Manajemen Produk Sepatu</h4>
-                <p class="text-muted small mb-0">Kelola data sepatu dan laporan penjualan</p>
+                <p class="text-muted small mb-0">Kelola data sepatu anda</p>
             </div>
             <a href="{{ route('create-sepatu') }}" class="btn btn-primary">
                 <i class="bi bi-plus-lg me-1"></i> Tambah Sepatu
@@ -50,12 +50,17 @@
                 </a>
             </li>
             <li class="nav-item" role="presentation">
+                <a href="{{ route('pesanan.index') }}" class="nav-link">
+                    <i class="bi bi-cart-check me-2"></i> Pesanan Sepatu
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
                 <a href="{{ route('laporan-penjualan.index') }}" class="nav-link">
                     <i class="bi bi-graph-up me-2"></i> Laporan Penjualan
                 </a>
             </li>
         </ul>
-        <!-- Flash Messages -->
+        
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
@@ -108,16 +113,10 @@
                                     <small class="text-muted">{{ Str::limit($data->deskripsi_sepatu, 50) }}</small>
                                 </td>
                                 <td>
-                                    @foreach($data->stok_sepatu as $stok)
-                                        <span class="badge bg-secondary">{{ $stok->ukuran_sepatu }}</span>
-                                    @endforeach
+                                    <span class="badge bg-secondary">{{ $data->ukuran_sepatu }}</span>
                                 </td>
                                 <td>
-                                    @if($data->stok_sepatu->isNotEmpty())
-                                        <span class="badge bg-success">{{ $data->stok_sepatu->first()->jumlah_stok }}</span>
-                                    @else
-                                        <span class="badge bg-danger">0</span>
-                                    @endif
+                                    <span class="badge bg-success">{{ $data->jumlah_stok }}</span>
                                 </td>
                                 <td><strong style="color: #ff5c00;">Rp {{ number_format($data->harga_sepatu, 0, ',', '.') }}</strong></td>                                
                                 <td class="text-center">
@@ -140,7 +139,6 @@
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

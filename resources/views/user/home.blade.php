@@ -125,14 +125,12 @@
                 {{-- Hero Image Placeholder --}}
                 <div class="col-lg-5 d-none d-lg-flex justify-content-center">
                     <div class="position-relative" style="width:420px;height:420px;">
- 
-                        @php $heroSepatu = $sepatu->first(); @endphp
- 
+  
                         <div style="position:absolute;inset:0;border:1px solid var(--fas-border);
                                     overflow:hidden;background:var(--fas-surface);">
-                            @if($heroSepatu && $heroSepatu->gambar_sepatu)
-                                <img src="{{ asset('storage/' . $heroSepatu->gambar_sepatu) }}"
-                                     alt="{{ $heroSepatu->nama_sepatu }}"
+                            @if($heroimg->gambar_sepatu)
+                                <img src="{{ asset('storage/' . $heroimg->gambar_sepatu) }}"
+                                     alt="{{ $heroimg->nama_sepatu }}"
                                      style="width:100%;height:100%;object-fit:cover;display:block;">
                             @else
                                 <div style="width:100%;height:100%;display:flex;align-items:center;
@@ -213,10 +211,10 @@
                                     <div class="product-price">
                                         Rp {{ number_format($data->harga_sepatu, 0, ',', '.') }}
                                     </div>
-                                    @if($data->stok_sekarang <= 0)
+                                    @if($data->jumlah_stok <= 0)
                                         <span class="stok-badge badge bg-danger">Habis</span>
-                                    @elseif($data->stok_sekarang <= 5)
-                                        <span class="stok-badge badge bg-warning text-dark">Sisa {{ $data->stok_sekarang }}</span>
+                                    @elseif($data->jumlah_stok <= 5)
+                                        <span class="stok-badge badge bg-warning text-dark">Sisa {{ $data->jumlah_stok }}</span>
                                     @else
                                         <span class="stok-badge badge bg-success">Tersedia</span>
                                     @endif

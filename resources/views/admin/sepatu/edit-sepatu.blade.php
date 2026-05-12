@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="ukuran_sepatu" class="form-label fw-semibold">Ukuran Sepatu</label>
-                                    <input type="text" name="ukuran_sepatu" class="form-control" placeholder="Contoh: 40,41,42,43" value="{{ $sepatu->stok_sepatu->pluck('ukuran_sepatu')->implode(',') }}" required>    
+                                    <input type="text" name="ukuran_sepatu" class="form-control" placeholder="Contoh: 40,41,42,43" value="{{ $sepatu->ukuran_sepatu }}" required>    
                                     <div class="form-text">Gunakan koma (,) sebagai pemisah antar ukuran.</div>                            
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="jumlah_stok" class="form-label fw-semibold">Stok Tersedia</label>
-                                    <input type="number" id="jumlah_stok" name="jumlah_stok" class="form-control" placeholder="0" min="0" value="{{ $sepatu->stok_sepatu->pluck('jumlah_stok')->first() ?? '' }}" required>
+                                    <input type="number" id="jumlah_stok" name="jumlah_stok" class="form-control" placeholder="0" min="0" value="{{ $sepatu->jumlah_stok }}" required>
                                 </div>
                             </div>
 

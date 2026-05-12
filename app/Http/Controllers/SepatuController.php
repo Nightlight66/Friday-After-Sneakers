@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Arr;
 use App\models\Sepatu;
-use App\Models\StokSepatu;
 
 class SepatuController extends Controller
 {
@@ -27,25 +25,7 @@ class SepatuController extends Controller
             $validatedData['gambar_sepatu'] = $request->file('gambar_sepatu')->store('images', 'public');
         }
 
-        // Pisahkan data untuk tabel sepatu
-        $dataSepatuUtama = Arr::except($validatedData, ['ukuran_sepatu', 'jumlah_stok']);
-
-        // Simpan data utama sepatu
-        $sepatu = Sepatu::create($dataSepatuUtama);
-
-       // 1. Ubah string "40, 42, 43" menjadi array ["40", "42", "43"]
-        $ukuranArray = explode(',', str_replace(' ', '', $request->ukuran_sepatu));
-
-        // 2. Loop array-nya
-        foreach ($ukuranArray as $ukuran) {
-            if (!empty($ukuran)) {
-                StokSepatu::create([
-                    'sepatu_id'     => $sepatu->sepatu_id,
-                    'ukuran_sepatu' => $ukuran, // PAKAI $ukuran (satuan), BUKAN $ukuranSepatu (gabungan)
-                    'jumlah_stok'   => $request->jumlah_stok
-                ]);
-            }
-        }
+        Sepatu::create($validatedData);
 
         return redirect()->route('dashboard')->with('success', 'Sepatu berhasil ditambahkan!');
     }
@@ -72,22 +52,7 @@ class SepatuController extends Controller
             $validatedData['gambar_sepatu'] = $sepatu->gambar_sepatu;
         }
 
-        $dataSepatuUtama = Arr::except($validatedData, ['ukuran_sepatu', 'jumlah_stok']);
-        $sepatu->update($dataSepatuUtama);
-
-        StokSepatu::where('sepatu_id', $sepatu->sepatu_id)->delete();
-
-        $ukuranArray = explode(',', str_replace(' ', '', $request->ukuran_sepatu));
-
-        foreach ($ukuranArray as $ukuran) {
-            if (!empty($ukuran)) {
-                StokSepatu::create([
-                    'sepatu_id'     => $sepatu->sepatu_id,
-                    'ukuran_sepatu' => $ukuran,
-                    'jumlah_stok'   => $request->jumlah_stok
-                ]);
-            }
-        }
+        $sepatu->update($validatedData);
 
         return redirect()->route('dashboard')->with('success', 'Data sepatu berhasil diperbarui!');
     }

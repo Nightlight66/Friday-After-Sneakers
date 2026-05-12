@@ -13,13 +13,14 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto"> <li class="nav-item">
-                        <a href="{{ route('user.home') }}" class="nav-link {{ request()->routeIs('user.home') ? 'active' : '' }}">
+                <ul class="navbar-nav me-auto"> 
+                    <li class="nav-item">
+                        <a href="{{ route('user.home') }}" class="nav-link">
                             <i class="bi bi-house-door me-1"></i> Home
                         </a>
                     </li>
@@ -35,18 +36,19 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
                 <h4 class="mb-0">Laporan Penjualan Bulanan</h4>
-                <p class="text-muted small mb-0">Kelola data penjualan bulanan toko</p>
+                <p class="text-muted small mb-0">Rekapitulasi otomatis dari data pesanan</p>
             </div>
-            <a href="{{ route('laporan-penjualan.create') }}" class="btn btn-success">
-                <i class="bi bi-plus-lg me-1"></i> Tambah Laporan
-            </a>
         </div>
 
-        <!-- Navigation Tabs -->
         <ul class="nav nav-tabs mb-4" role="tablist">
             <li class="nav-item" role="presentation">
                 <a href="{{ route('dashboard') }}" class="nav-link">
                     <i class="bi bi-house me-2"></i> Daftar Sepatu
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a href="{{ route('pesanan.index') }}" class="nav-link">
+                    <i class="bi bi-cart-check me-2"></i> Pesanan Sepatu
                 </a>
             </li>
             <li class="nav-item" role="presentation">
@@ -56,62 +58,32 @@
             </li>
         </ul>
 
-        <!-- Flash Messages -->
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        @endif
-        @if(session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <i class="bi bi-exclamation-circle me-2"></i>{{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        @endif
-
         <!-- Table Data -->
-        <div class="card shadow-sm">
+        <div class="card shadow-sm mb-5">
             <div class="card-body p-0">
-                @if($laporan->count() > 0)
+                @if($laporan->isNotEmpty())
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">
                             <thead class="table-light">
                                 <tr>
-                                    <th>No</th>
-                                    <th>Periode</th>
+                                    <th class="ps-4">No</th>
+                                    <th>Periode Bulan</th>
                                     <th>Total Sepatu Terjual</th>
                                     <th>Total Omset</th>
-                                    <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($laporan as $data)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td class="ps-4">{{ $loop->iteration }}</td>
                                     <td>
-                                        <strong>{{ $data->nama_bulan }} {{ $data->tahun }}</strong>
+                                        <strong>{{ DateTime::createFromFormat('m', $data->bulan)->format('F') }} {{ $data->tahun }}</strong>
                                     </td>
                                     <td>
-                                        <span class="badge bg-info">{{ $data->total_sepatu_terjual }} pcs</span>
+                                        <span class="badge bg-info text-dark">{{ $data->total_sepatu }} pcs</span>
                                     </td>
                                     <td>
                                         <strong style="color: #28a745;">Rp {{ number_format($data->total_omset, 0, ',', '.') }}</strong>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="{{ route('laporan-penjualan.edit', $data->laporan_id) }}" 
-                                           class="btn btn-sm btn-outline-primary" title="Edit">
-                                            <i class="bi bi-pencil"></i> Edit
-                                        </a>
-                                        <form action="{{ route('laporan-penjualan.destroy', $data->laporan_id) }}" 
-                                              method="POST" class="d-inline" 
-                                              onsubmit="return confirm('Apakah Anda yakin ingin menghapus laporan ini?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Hapus">
-                                                <i class="bi bi-trash"></i> Hapus
-                                            </button>
-                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -121,7 +93,7 @@
                 @else
                     <div class="text-center py-5">
                         <i class="bi bi-inbox" style="font-size: 3rem; color: #999;"></i>
-                        <p class="text-muted mt-3">Belum ada laporan penjualan. <a href="{{ route('laporan-penjualan.create') }}">Tambah sekarang</a></p>
+                        <p class="text-muted mt-3">Belum ada transaksi pesanan yang tercatat.</p>
                     </div>
                 @endif
             </div>

@@ -281,44 +281,39 @@
                     <div style="font-family:var(--fas-font-cond);font-size:.78rem;font-weight:700;
                                 letter-spacing:.15em;text-transform:uppercase;color:var(--fas-muted);
                                 margin-bottom:.8rem;">Pilih Ukuran</div>
-
                     <div class="d-flex flex-wrap gap-2 mb-3">
-                        @foreach($sepatu->stok_sepatu as $stok)
-                            {{-- Ubah $stok->id menjadi $stok->stok_id dan ukuran_sepatu menjadi ukuran --}}
+                        @foreach($sepatu->daftar_ukuran as $ukuran)
                             <input type="radio" class="btn-check" name="ukuran_sepatu"
-                                id="uk_{{ $stok->stok_id }}" value="{{ $stok->ukuran_sepatu }}">
-                                
-                            <label class="size-btn btn px-3 py-2" for="uk_{{ $stok->stok_id }}">
-                                {{ $stok->ukuran_sepatu }}
+                                id="uk_{{ $ukuran }}" value="{{ $ukuran }}">
+                            <label class="size-btn btn btn-outline-secondary px-3 py-2" for="uk_{{ $ukuran }}">
+                                {{ $ukuran }}
                             </label>
                         @endforeach
                     </div>
-
-                    {{-- Stok Info --}}
                     <div class="d-flex align-items-center gap-2 mb-4">
-                        @if($sepatu->stok_sekarang <= 0)
+                        @if($sepatu->jumlah_stok <= 0)
                             <span class="stok-tag bg-danger">Stok Habis</span>
-                        @elseif($sepatu->stok_sekarang <= 5)
-                            <span class="stok-tag bg-warning text-dark">Sisa {{ $sepatu->stok_sekarang }} pcs</span>
+                        @elseif($sepatu->jumlah_stok <= 5)
+                            <span class="stok-tag bg-warning text-dark">Sisa {{ $sepatu->jumlah_stok }} pcs</span>
                         @else
                             <span class="stok-tag bg-success">Tersedia</span>
                         @endif
                         <span style="color:var(--fas-muted);font-size:.85rem;">
-                            Total Stok: {{ $sepatu->stok_sekarang }} pcs
+                            Total Stok: {{ $sepatu->jumlah_stok }} pcs
                         </span>
                     </div>
 
                     <hr class="fas-divider">
 
                     {{-- CTA Buttons --}}
-                    @if($sepatu->stok_sekarang <= 0)
+                    @if($sepatu->jumlah_stok <= 0)
                     <div class="d-grid gap-2">
                         <a href={{ route('user.katalog') }} class="btn btn-fas-orange btn-lg" style="font-size:1rem;">
                             <i class="bi me-2"></i>Barang Habis
                         </a>
                     @else
                     <div class="d-grid gap-2">
-                        <a href="https://wa.me/6282143690101?text=Halo,%20saya%20ingin%20membeli%20{{ urlencode($sepatu->nama_sepatu) }},%20apakah%20masih%20tersedia?"
+                        <a href="https://wa.me/6282143690101?text=Halo,%20saya%20ingin%20membeli%20{{ urlencode($sepatu->nama_sepatu) }}"
                            target="_blank"
                            class="btn btn-fas-orange btn-lg"
                            style="font-size:1rem;">

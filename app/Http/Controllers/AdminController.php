@@ -8,8 +8,8 @@ use App\Models\KategoriSepatu;
 class AdminController extends Controller
 {
     public function dashboard(){
-        $sepatu = Sepatu::with(['stok_sepatu'])->get();
-        return view('admin.dashboard', compact('sepatu'));
+        $sepatu = Sepatu::all();
+        return view('admin.sepatu.sepatu', compact('sepatu'));
     }
 
     public function createSepatu(){
@@ -19,7 +19,6 @@ class AdminController extends Controller
 
     public function editSepatu($id){
         $sepatu = Sepatu::findOrFail($id);
-        $sepatu->load('stok_sepatu');
         return view('admin.sepatu.edit-sepatu', compact('sepatu'));
     }
 }

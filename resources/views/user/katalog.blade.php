@@ -493,11 +493,11 @@
                                         <div class="product-price">
                                             Rp {{ number_format($data->harga_sepatu, 0, ',', '.') }}
                                         </div>
-                                        @if($data->stok_sekarang <= 0)
+                                        @if($data->jumlah_stok <= 0)
                                             <span class="stok-badge badge bg-danger">Habis</span>
-                                        @elseif($data->stok_sekarang <= 5)
+                                        @elseif($data->jumlah_stok <= 5)
                                             <span class="stok-badge badge bg-warning text-dark">
-                                                Sisa {{ $data->stok_sekarang }}
+                                                Sisa {{ $data->jumlah_stok }}
                                             </span>
                                         @else
                                             <span class="stok-badge badge bg-success">Tersedia</span>

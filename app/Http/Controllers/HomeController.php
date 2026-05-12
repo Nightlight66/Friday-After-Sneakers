@@ -9,12 +9,11 @@ use App\Models\KategoriSepatu;
 class HomeController extends Controller
 {
     public function home(){
-        $sepatu   = Sepatu::with(['kategori', 'stok_sepatu'])
-                    ->inRandomOrder()
-                    ->take(8)->get();
+        $sepatu   = Sepatu::with(['kategori'])->take(8)->get();
         $kategori = KategoriSepatu::orderBy('nama_kategori')->get();
+        $heroimg = Sepatu::inRandomOrder()->first();
 
-        return view('user.home', compact('sepatu', 'kategori'));
+        return view('user.home', compact('sepatu', 'kategori', 'heroimg'));
     }
 
     public function detail($id){
@@ -23,7 +22,7 @@ class HomeController extends Controller
     }
 
     public function katalog(Request $request){
-    $query = Sepatu::with(['kategori', 'stok_sepatu']);
+    $query = Sepatu::with(['kategori']);
 
     if ($request->filled('q'))
         $query->where('nama_sepatu', 'like', '%'.$request->q.'%');
